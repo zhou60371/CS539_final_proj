@@ -1,10 +1,11 @@
-import numpy as np
-import json
 import os
+import json
 import requests
+import numpy as np
 
 root = "./datasets"
 data_info_file = "captions_train2014.json"
+
 
 class data_loader():
     def __init__(self, root, data_info_file):
@@ -22,7 +23,7 @@ class data_loader():
     def get_caption(self, imgId):
         caption_list = []
         for caption in self.data_info["annotations"]:
-            if caption["image_id"]==imgId:
+            if caption["image_id"] == imgId:
                 caption_list.append(caption["caption"])
 
         return caption_list
@@ -49,6 +50,7 @@ class data_loader():
                         f.write(sentence)
                         f.write("\n")
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     data_loader = data_loader(root, data_info_file)
     data_loader.dump_data()
