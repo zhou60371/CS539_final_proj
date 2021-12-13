@@ -1,4 +1,4 @@
-from keras.optimizers import adam_v2
+from keras.optimizers import adam
 from datasets.loader import DatasetSequence
 from model.network import model
 from model.utils import contrastive_loss
@@ -9,7 +9,7 @@ checkpoint = ModelCheckpoint(
     "./model/weights/saved-model-{epoch:02d}.hdf5",
     verbose=1, save_best_only=False, mode='max')
 
-adam = adam_v2.Adam()
+adam = adam.Adam()
 model.compile(loss=contrastive_loss,
               optimizer=adam,
               metrics=[BinaryAccuracy()])

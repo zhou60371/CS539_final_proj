@@ -1,15 +1,17 @@
 from keras.layers import Input, Dense, Lambda, Layer
 from keras import backend as K
 from keras.models import Model
-from tensorflow.keras.applications.resnet import ResNet152
+from tensorflow.keras.applications.resnet50 import ResNet50
 
 from model.utils import create_txt_encoder
 from model.utils import create_img_encoder
 from model.utils import euclidean_distance
 from model.utils import eucl_dist_output_shape
 
+from network.text_processing import text_processing
 
-resnet = ResNet152(include_top=True, weights='imagenet')
+
+resnet = ResNet50(include_top=True, weights='imagenet')
 
 for layer in resnet.layers:
     layer.trainable = False
@@ -19,6 +21,9 @@ input_img = Input(shape=(224, 224, 3))
 
 txt_enc = create_txt_encoder(input_txt)
 img_enc = create_img_encoder(input_img, resnet)
+
+# txt_enc = text_processing()
+# encoded_txt = txt_enc.text_encoder(input_txt)
 
 encoded_txt = txt_enc(input_txt)
 encoded_img = img_enc(input_img)
