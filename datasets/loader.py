@@ -15,9 +15,9 @@ class DatasetSequence(Sequence):
         if dataset == 'train':
             self.offset = 0
         elif dataset == 'valid':
-            self.offset = 5000
+            self.offset = 10000
         elif dataset == 'test':
-            self.offset = 6000
+            self.offset = 11000
 
         self.pd_img = {}
         self.pd_txt = {}
@@ -91,12 +91,14 @@ class DatasetSequence(Sequence):
         if idx in self.pd_txt:
             return self.pd_txt[idx]
 
-        embedding_data = np.load(f'./datasets/{self.dataset}/{idx}/embedding.npy')
-        if embedding_data.shape[0] < 5:
-            padding = np.zeros(((5 - embedding_data.shape[0]), 100))
+        embedding_data = np.load(f'./datasets/{self.dataset}/{idx}/embedding_50.npy')
+        truncate_length = 10
+
+        if embedding_data.shape[0] < truncate_length:
+            padding = np.zeros(((truncate_length - embedding_data.shape[0]), embedding_data.shape[1]))
             embedding_data = np.concatenate((embedding_data, padding), axis=0)
         else:
-            embedding_data = embedding_data[:5, :]
+            embedding_data = embedding_data[:truncate_length, :]
 
         embedding_data = embedding_data.reshape(-1)
 

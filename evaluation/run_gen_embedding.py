@@ -6,6 +6,24 @@ from tqdm import tqdm
 import gensim.downloader
 from string import punctuation
 
+# import torch
+# from transformers import BertModel, BertTokenizer
+# from transformers.models import bert
+
+# class TransformerEncoder():
+#     def __init__(self):
+#         self.model = BertModel.from_pretrained("bert-base-uncase")
+#         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncase")
+
+#     def text_encoder(self):
+#         ids = torch.tensor([self.tokenizer(self.text, add_special_tokens=True)])
+#         embedding = self.model(ids)
+#         return embedding
+
+#     def grab_position(self, text, entity):
+#         pass
+
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('gutenberg')
@@ -24,7 +42,8 @@ def read_first_line(f_txt):
 class TextProcessor:
     def __init__(self, embedding_dim=100):
         self.embedding_dim = embedding_dim
-        self.vectors = gensim.downloader.load('glove-wiki-gigaword-100')
+        self.vectors = gensim.downloader.load('glove-wiki-gigaword-50')
+        # self.tec = TransformerEncoder()
 
     def normalize_document(self, doc):
         # lower case and remove special characters\whitespaces
@@ -41,6 +60,7 @@ class TextProcessor:
     def process(self, dataset):
         for f in tqdm(glob.glob(f'./datasets/{dataset}/*/annotations.txt')):
             sentence = read_first_line(f)
+
             words = [word.lower() for word in sentence.split()
                      if word not in remove_terms]
             words = self.normalize_document(' '.join(words))
@@ -54,7 +74,7 @@ class TextProcessor:
                     res.append(self.vectors['unknown'])
 
             vectors = np.array(res)
-            np.save(f.replace('annotations.txt', 'embedding.npy'), vectors)
+            np.save(f.replace('annotations.txt', 'embedding_50.npy'), vectors)
 
 
 if __name__ == '__main__':
