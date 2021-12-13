@@ -1,0 +1,6 @@
+train/*
+!train/.gitkeep
+valid/*
+!valid/.gitkeep
+test/*
+!test/.gitkeep

@@ -1,0 +1,10 @@
+{
+    "python.formatting.provider": "autopep8",
+    "cSpell.words": [
+        "gigaword",
+        "imageio",
+        "nltk",
+        "relu",
+        "tqdm"
+    ]
+}
