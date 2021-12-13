@@ -30,7 +30,7 @@ def create_img_encoder(input_dim, resnet):
 
 def create_txt_encoder(input_dim):
     x = Sequential()
-    x.add(Dense(500, input_shape=(512,), activation="relu"))
+    x.add(Dense(500, input_shape=(500,), activation="relu"))
     x.add(Dropout(0.5))
     x.add(Dense(512, activation="relu"))
     return x
