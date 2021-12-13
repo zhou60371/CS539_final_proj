@@ -26,4 +26,4 @@ encoded_img = img_enc(input_img)
 distance = Lambda(euclidean_distance,
                   output_shape=eucl_dist_output_shape)([encoded_txt, encoded_img])
 
-model = Model([input_txt, input_img], distance)
+model = Model(inputs=[input_txt, input_img], outputs=distance)

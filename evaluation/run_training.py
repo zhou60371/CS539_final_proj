@@ -2,11 +2,19 @@ from keras.optimizers import adam_v2
 from datasets.loader import DatasetSequence
 from model.network import model
 from model.utils import contrastive_loss
+from keras.metrics import BinaryAccuracy
+from keras.callbacks import ModelCheckpoint
 
-adam = adam_v2.Adam(lr=0.00001)
-model.compile(loss=contrastive_loss, optimizer=adam)
+checkpoint = ModelCheckpoint(
+    "./model/weights/saved-model-{epoch:02d}.hdf5",
+    verbose=1, save_best_only=False, mode='max')
+
+adam = adam_v2.Adam()
+model.compile(loss=contrastive_loss,
+              optimizer=adam,
+              metrics=[BinaryAccuracy()])
 model.summary()
 
-model.fit(DatasetSequence('train'),
-          validation_data=DatasetSequence('valid'),
-          epochs=30, verbose=1)
+model.fit(DatasetSequence('train', 64),
+          validation_data=DatasetSequence('valid', 64),
+          epochs=30, verbose=1, callbacks=[checkpoint])

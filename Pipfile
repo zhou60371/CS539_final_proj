@@ -15,6 +15,7 @@ autopep8 = "*"
 transformers = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.8"
