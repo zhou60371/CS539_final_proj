@@ -10,11 +10,10 @@ class text_processing():
 
     # Apply Bert to obtain embedding
     # pending for pad, mask usage
-    def text_encoder(self, text):
-        ids = torch.tensor([self.tokenizer(text, add_special_tokens=True)])
+    def text_encoder(self):
+        ids = torch.tensor([self.tokenizer(self.text, add_special_tokens=True)])
         embedding = self.model(ids)
         return embedding
 
     def grab_position(self, text, entity):
         pass
-
