@@ -15,6 +15,6 @@ model.compile(loss=contrastive_loss,
               metrics=[BinaryAccuracy()])
 model.summary()
 
-model.fit(DatasetSequence('train', 64),
-          validation_data=DatasetSequence('valid', 64),
-          epochs=30, verbose=1, callbacks=[checkpoint])
+model.fit(DatasetSequence('train', 50),
+          validation_data=DatasetSequence('valid', 50),
+          epochs=50, verbose=1, callbacks=[checkpoint])

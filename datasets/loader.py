@@ -31,13 +31,15 @@ class DatasetSequence(Sequence):
         batch_txt = np.zeros((self.batch_size, 500))
         batch_labels = np.zeros((self.batch_size, 1))
 
-        ti = self.offset + index
+        ti = self.offset + index * self.batch_size
 
         for i in range(self.batch_size // 2):
 
+            ii = ti + i
+
             # correct
-            img = self.read_image(self.dataset, ti)
-            txt = self.read_text_embedding(self.dataset, ti)
+            img = self.read_image(ii)
+            txt = self.read_text_embedding(ii)
 
             batch_img[i] = img
             batch_txt[i] = txt
@@ -46,11 +48,11 @@ class DatasetSequence(Sequence):
             j = self.batch_size - 1 - i
 
             # incorrect
-            ii = ti
-            while ii == ti:
-                ii = self.offset + randint(0, self.__len__())
+            ji = ii
+            while ji == ti:
+                ji = self.offset + randint(0, self.__len__() * self.batch_size - 1)
 
-            img = self.read_image(self.dataset, ii)
+            img = self.read_image(ji)
 
             batch_img[j] = img
             batch_txt[j] = txt
@@ -58,11 +60,11 @@ class DatasetSequence(Sequence):
 
         return [batch_txt, batch_img], batch_labels
 
-    def read_image(self, dataset, idx):
+    def read_image(self, idx):
         if idx in self.pd_img:
             return self.pd_img[idx]
 
-        img = Image.open(f'./datasets/{dataset}/{idx}/image.jpg')
+        img = Image.open(f'./datasets/{self.dataset}/{idx}/image.jpg')
 
         side = min(img.width, img.height)
 
@@ -74,18 +76,22 @@ class DatasetSequence(Sequence):
         img = img.crop((left, top, right, bottom))
         img = img.resize((224, 224))
         img = np.asarray(img)
-        img = np.expand_dims(img, axis=0)
+
+        if len(img.shape) == 2:
+            img = np.stack([img, img, img], axis=-1)
+
+        # img = np.expand_dims(img, axis=0)
         img = preprocess_input(img)
 
         self.pd_img[idx] = img
 
         return img
 
-    def read_text_embedding(self, dataset, idx):
+    def read_text_embedding(self, idx):
         if idx in self.pd_txt:
             return self.pd_txt[idx]
 
-        embedding_data = np.load(f'./datasets/{dataset}/{idx}/embedding.npy')
+        embedding_data = np.load(f'./datasets/{self.dataset}/{idx}/embedding.npy')
         if embedding_data.shape[0] < 5:
             padding = np.zeros(((5 - embedding_data.shape[0]), 100))
             embedding_data = np.concatenate((embedding_data, padding), axis=0)
@@ -93,6 +99,7 @@ class DatasetSequence(Sequence):
             embedding_data = embedding_data[:5, :]
 
         embedding_data = embedding_data.reshape(-1)
+
         self.pd_txt[idx] = embedding_data
 
         return embedding_data
