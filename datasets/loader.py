@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 from random import randint
 from tensorflow.keras.utils import Sequence
-from tensorflow.keras.applications.resnet import preprocess_input
+from tensorflow.keras.applications.resnet50 import preprocess_input
 
 
 class DatasetSequence(Sequence):
