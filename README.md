@@ -8,11 +8,11 @@ This project mainly focus on Image-Text Alignment.
 1. Proposal: Intro/Related Work/Datasets/Proposal/Reference
 	Ruoxue: Intro/Related Work
 	Kai: Datasets/Proposal
-	others: 审阅/修改
+	others: review/edit
 	first-edit:10.10
 2. Research paper Pre:
 	Slides - Yang
-	others: 阅读
+	others: reading
 3. Website:
 	Zihao Zhou
 4. Code
