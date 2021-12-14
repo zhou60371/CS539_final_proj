@@ -17,4 +17,4 @@ model.summary()
 
 model.fit(DatasetSequence('train', 50),
           validation_data=DatasetSequence('valid', 50),
-          epochs=50, verbose=1, callbacks=[checkpoint])
+          epochs=100, verbose=1, callbacks=[checkpoint])

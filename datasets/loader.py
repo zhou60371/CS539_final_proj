@@ -1,5 +1,7 @@
+import time
 import math
 import glob
+import config
 import numpy as np
 from PIL import Image
 from random import randint
@@ -8,7 +10,7 @@ from tensorflow.keras.applications.resnet import preprocess_input
 
 
 class DatasetSequence(Sequence):
-    def __init__(self, dataset, batch_size=32):
+    def __init__(self, dataset, batch_size=50):
         self.dataset = dataset
         self.batch_size = batch_size
 
@@ -23,12 +25,12 @@ class DatasetSequence(Sequence):
         self.pd_txt = {}
 
     def __len__(self):
-        f = glob.glob(f'./datasets/{self.dataset}/*/embedding.npy')
+        f = glob.glob(f'./datasets/{self.dataset}/*/meta.json')
         return math.ceil(len(f) / self.batch_size)
 
     def __getitem__(self, index):
         batch_img = np.zeros((self.batch_size, 224, 224, 3))
-        batch_txt = np.zeros((self.batch_size, 500))
+        batch_txt = np.zeros((self.batch_size, config.SENTENCE_EMBEDDING_LENGTH))
         batch_labels = np.zeros((self.batch_size, 1))
 
         ti = self.offset + index * self.batch_size
@@ -49,7 +51,7 @@ class DatasetSequence(Sequence):
 
             # incorrect
             ji = ii
-            while ji == ti:
+            while ji == ii:
                 ji = self.offset + randint(0, self.__len__() * self.batch_size - 1)
 
             img = self.read_image(ji)
@@ -91,8 +93,13 @@ class DatasetSequence(Sequence):
         if idx in self.pd_txt:
             return self.pd_txt[idx]
 
-        embedding_data = np.load(f'./datasets/{self.dataset}/{idx}/embedding_50.npy')
-        truncate_length = 10
+        # word2vec
+        if config.WORD_EMBEDDING_SRC == 'word2vec':
+            embedding_data = np.load(f'./datasets/{self.dataset}/{idx}/embedding_50.npy')
+        elif config.WORD_EMBEDDING_SRC == 'bert':
+            embedding_data = np.load(f'./datasets/{self.dataset}/{idx}/bert_512.npy')[0]
+
+        truncate_length = config.SENTENCE_TRUNCATION_LENGTH
 
         if embedding_data.shape[0] < truncate_length:
             padding = np.zeros(((truncate_length - embedding_data.shape[0]), embedding_data.shape[1]))

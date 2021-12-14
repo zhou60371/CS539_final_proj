@@ -5,23 +5,23 @@ import numpy as np
 from tqdm import tqdm
 import gensim.downloader
 from string import punctuation
+from transformers import BertModel, BertTokenizer
 
-# import torch
-# from transformers import BertModel, BertTokenizer
-# from transformers.models import bert
 
-# class TransformerEncoder():
-#     def __init__(self):
-#         self.model = BertModel.from_pretrained("bert-base-uncase")
-#         self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncase")
+class BertEncoder():
+    def __init__(self):
+        self.model = BertModel.from_pretrained("bert-base-uncased")
+        self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 
-#     def text_encoder(self):
-#         ids = torch.tensor([self.tokenizer(self.text, add_special_tokens=True)])
-#         embedding = self.model(ids)
-#         return embedding
-
-#     def grab_position(self, text, entity):
-#         pass
+    # Apply Bert to obtain embedding
+    # pending for pad, mask usage
+    def encode(self, text):
+        ids = self.tokenizer(text, add_special_tokens=True,
+                             padding=True, truncation=True, return_tensors='pt')
+        embedding = self.model(**ids)
+        embedding = embedding.last_hidden_state
+        embedding = embedding.detach().numpy()
+        return embedding
 
 
 nltk.download('punkt')
@@ -43,7 +43,7 @@ class TextProcessor:
     def __init__(self, embedding_dim=100):
         self.embedding_dim = embedding_dim
         self.vectors = gensim.downloader.load('glove-wiki-gigaword-50')
-        # self.tec = TransformerEncoder()
+        self.bert_encoder = BertEncoder()
 
     def normalize_document(self, doc):
         # lower case and remove special characters\whitespaces
@@ -61,6 +61,11 @@ class TextProcessor:
         for f in tqdm(glob.glob(f'./datasets/{dataset}/*/annotations.txt')):
             sentence = read_first_line(f)
 
+            # Generate Bert embedding
+            # bert_vec = self.bert_encoder.encode(sentence)
+            # np.save(f.replace('annotations.txt', 'bert_512.npy'), bert_vec)
+
+            # Word2vec embedding
             words = [word.lower() for word in sentence.split()
                      if word not in remove_terms]
             words = self.normalize_document(' '.join(words))

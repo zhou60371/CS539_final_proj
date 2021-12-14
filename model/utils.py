@@ -1,3 +1,4 @@
+import config
 from keras.layers.core import Dropout
 from keras.layers import Dense
 from keras import backend as K
@@ -29,7 +30,7 @@ def create_img_encoder(resnet):
 
 def create_txt_encoder():
     x = Sequential()
-    x.add(Dense(500, input_shape=(500,), activation="relu"))
+    x.add(Dense(500, input_shape=(config.SENTENCE_EMBEDDING_LENGTH,), activation="relu"))
     # x.add(Dropout(0.5))
     x.add(Dense(512, activation="relu"))
     return x
