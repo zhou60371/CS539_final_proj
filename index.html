@@ -35,7 +35,13 @@
                         <a class="nav-link" id="result" href="#">Result</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">GitHub</a>
+                        <a class="nav-link" id="demo" href="#">Demo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="team" href="#">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/MatthewKKai/CS539_final_proj">GitHub</a>
                     </li>
                 </ul>
             </div>
@@ -45,9 +51,8 @@
         <div class="overview">
             <p class="h3" style="padding-top: 30px;">Background</p>
             <div>
-                With the rapid development of technology, a large num-
-                ber of multi-modality data have been created through in-
-                ternet and how to process these multi-modality data has
+                With the rapid development of technology, a large number of multi-modality data have been created
+                through internet and how to process these multi-modality data has
                 become a hotspot topic. Image-text matching task is for
                 this topic, which has drawn plenty attentions in computer
                 vision (CV) and natural language processing (NLP) fields. Traditionally, this problem has been explored
@@ -57,7 +62,7 @@
                 method is inherently to be computationally intensive as it
                 requires fined understanding of both image and text data.
             </div>
-            <p class="h3" style="padding-top: 30px;">overview</p>
+            <p class="h3" style="padding-top: 30px;">Overview</p>
             <div>
                 In this work, we proposed a bi-track processor structure
                 to tackle the problem of alignment between image objects
@@ -96,8 +101,115 @@
                 annotations in COCO. The API supports multiple annotation formats./div>
             </div>
         </div>
-        <div class="model">333</div>
-        <div class="result">444</div>
+        <div class="model">
+            <p class="h3" style="padding-top: 30px;">PipeLine</p>
+            <div class="text-center">
+                <img src="images/figure3.png" style="padding-top: 30px;" width="80%" class="rounded mx-auto d-block"
+                    alt="">
+            </div>
+            <p class="h3" style="padding-top: 30px;">Image Processor</p>
+            <div class="card text-center">
+                <div class="card-header">
+                    ResNet
+                </div>
+                <div class="card-body">
+                    <img src="images/figure4.png" style="padding-top: 30px;" width="80%" class="rounded mx-auto d-block"
+                        alt="">
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    VGG19
+                </div>
+                <div class="card-body">
+                    <img src="images/figure5.png" style="padding-top: 30px;" width="80%" class="rounded mx-auto d-block"
+                        alt="">
+                </div>
+            </div>
+            <p class="h3" style="padding-top: 30px;">Text Procesoor</p>
+            <div class="card text-center">
+                <div class="card-header">
+                    Tokenizer + Bert
+                </div>
+                <div class="card-body">
+                    <img src="images/figure6.png" style="padding-top: 30px;" width="80%" class="rounded mx-auto d-block"
+                        alt="">
+                </div>
+            </div>
+            <div class="card text-center">
+                <div class="card-header">
+                    Word2Vec: Skip-Gram, CBOW
+                </div>
+                <div class="card-body">
+                    <img src="images/figure7.png" style="padding-top: 30px;" width="80%" class="rounded mx-auto d-block"
+                        alt="">
+                </div>
+            </div>
+            <p class="h3" style="padding-top: 30px;">References</p>
+            <ul>
+                <li>[1] Chunxiao Liu, Zhedong Mao, Tianzhu Zhang, Hongtao Xie, Bin Wang and Yongdong Zhang. Graph
+                    structured
+                    network for image-text matching. arXiv: 2004.00277v1, 2020.
+                </li>
+                <li>[2] Zhedong Zheng, Liang Zheng, Michael Garrett, Yi Yang, Mingliang Xu and Yi-Dong Shen. Dual-path
+                    convolutional image-text embedding with instance loss. arXiv: 1711.05535v4, 2021.</li>
+            </ul>
+        </div>
+        <div class="result">
+            <p class="h3" style="padding-top: 30px;">Accuracy</p>
+            <div class="text-center">
+                <img src="images/figure8.png" style="padding-top: 30px;" width="80%" class="rounded mx-auto d-block"
+                    alt="">
+            </div>
+            <p class="h3" style="padding-top: 30px;">Conclusion</p>
+            <div>
+                <ul style="padding-top: 20px;">
+                    <li>
+                        <div>
+                            We evaluated the text-image retrieval performance over the combination of several common
+                            visual and
+                            language models.
+                        </div>
+                    </li>
+                    <li style="padding-top: 10px;">
+                        <div>
+                            We show that although deeper models (Bert, VGG19) achieve better accuracy, they tend to use
+                            significant
+                            more computation resources.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <p class="h3" style="padding-top: 30px;">Future Work</p>
+            <div>
+                Current finding suggests relatively low information density in learnt features. Thus, its worth to
+                explore more resource efficient learning models and feature representations.
+            </div>
+        </div>
+        <div class="demo">
+            <div style="padding-top: 80px;">
+                <video width="100%" src="video/Lemon.mp4" controls></video>
+            </div>
+
+        </div>
+        <div class="team">
+            <p class="h3" style="padding-top: 30px;">Menbers</p>
+            <div>
+                <span class="fw-bold">Yiqin Zhao</span><span>
+                    <a href="mailto: yzhao11@wpi.edu">yzhao11@wpi.edu</a>
+                </span>
+            </div>
+            <div>
+                <span class="fw-bold">Kai Zhang</span><span> <a
+                        href="mailto: kzhang8@wpi.edu">kzhang8@wpi.edu</a></span>
+            </div>
+            <div>
+                <span class="fw-bold">Yang Wu</span><span> <a href="mailto: ywu19@wpi.edu">ywu19@wpi.edu</a></span>
+            </div>
+            <div>
+                <span class="fw-bold">Zihao Zhou</span><span> <a href="mailto: zzhou5@wpi.edu">zzhou5@wpi.edu</a></span>
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

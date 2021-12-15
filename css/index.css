@@ -6,6 +6,11 @@
     display: none;
 }
 
-.result{
+.result, .demo, .team{
     display: none;
+}
+
+.text{
+    font: 600;
+    font: bold;
 }
