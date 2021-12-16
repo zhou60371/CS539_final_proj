@@ -70,21 +70,18 @@
             </div>
             <p class="h3" style="padding-top: 30px;">Overview</p>
             <div>
-                In this work, we proposed a bi-track processor structure
-                to tackle the problem of alignment between image objects
-                and text words. Specially, we reckon this task as a binary
-                match task - given image and text as input, we predict the
-                output as match or not match. As shown in Fig.1, our struc-
-                ture gives an insight of trustworthy matching process. We
-                design an object detector to detect the objects in image and
-                use pre-trained model to generate the semantic embedding
-                for text. And in the last stage, we apply an attention-based layer to deal with the multimodality data
-                alignment to get
-                the similarity between given image-text pair.
+                In this work, we explore the image-text retrival task with an interest of coarse and fine representation
+                feature learning. We propose a two branch network that extracts features with different level of details
+                from text and image data. Specifically, we evaluated the combination of image features from ResNet, VGG
+                and text features from word2vec, Bert as coarse and fine feature respectively. Our two branch network
+                forms an siamese network strcture. By optimizing the contrastive loss during trianing, we achieve binary
+                image-text matching accuracy as high as 71.1% in our dataset. Our results also show that classification
+                accuracy does not linearly scale up with model complexity, which motivates future optmization for more
+                efficient model design and representation learning.
             </div>
-            <div>
+            <!-- <div>
                 <img src="images/figure1.png" width="80%" class="rounded mx-auto d-block" alt="">
-            </div>
+            </div> -->
 
         </div>
         <div class="dataset">
